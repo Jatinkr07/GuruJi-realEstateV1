@@ -18,27 +18,71 @@ import { LuParkingMeter } from "react-icons/lu";
 import { CiFootball } from "react-icons/ci";
 
 export const amenitiesList = [
-  { name: "lift", label: "Lift", icon: <GiElevator /> },
-  { name: "Parking", label: "Parking", icon: <LuParkingMeter /> },
-  { name: "security", label: "Security", icon: <GiSecurityGate /> },
-  { name: "power backup", label: "Power Backup", icon: <GiElectric /> },
-  { name: "swimming pool", label: "Swimming Pool", icon: <TbSwimming /> },
-  { name: "club", label: "Club", icon: <GiPartyPopper /> },
-  { name: "child play area", label: "Play Area", icon: <CiFootball /> },
-  { name: "cctv", label: "24/7 CCTV", icon: <GiCctvCamera /> },
-  { name: "garden", label: "Garden", icon: <GiFruitTree /> },
+  {
+    name: "lift",
+    label: "Lift",
+    icon: <GiElevator style={{ fontSize: "36px" }} />,
+  },
+  {
+    name: "Parking",
+    label: "Parking",
+    icon: <LuParkingMeter style={{ fontSize: "36px" }} />,
+  },
+  {
+    name: "security",
+    label: "Security",
+    icon: <GiSecurityGate style={{ fontSize: "36px" }} />,
+  },
+  {
+    name: "power backup",
+    label: "Power Backup",
+    icon: <GiElectric style={{ fontSize: "36px" }} />,
+  },
+  {
+    name: "swimming pool",
+    label: "Swimming Pool",
+    icon: <TbSwimming style={{ fontSize: "36px" }} />,
+  },
+  {
+    name: "club",
+    label: "Club",
+    icon: <GiPartyPopper style={{ fontSize: "36px" }} />,
+  },
+  {
+    name: "child play area",
+    label: "Play Area",
+    icon: <CiFootball style={{ fontSize: "36px" }} />,
+  },
+  {
+    name: "cctv",
+    label: "24/7 CCTV",
+    icon: <GiCctvCamera style={{ fontSize: "36px" }} />,
+  },
+  {
+    name: "garden",
+    label: "Garden",
+    icon: <GiFruitTree style={{ fontSize: "36px" }} />,
+  },
   {
     name: "high speed elivator",
     label: "High Speed Lift",
-    icon: <GiRocketFlight />,
+    icon: <GiRocketFlight style={{ fontSize: "36px" }} />,
   },
-  { name: "Gym", label: "Gym", icon: <GiGymBag /> },
+  {
+    name: "Gym",
+    label: "Gym",
+    icon: <GiGymBag style={{ fontSize: "36px" }} />,
+  },
   {
     name: "Multi - purpose hall",
     label: "Multi-purpose Hall",
-    icon: <GiFamilyHouse />,
+    icon: <GiFamilyHouse style={{ fontSize: "36px" }} />,
   },
-  { name: "Yoga teck", label: "Yoga Deck", icon: <GiMeditation /> },
+  {
+    name: "Yoga teck",
+    label: "Yoga Deck",
+    icon: <GiMeditation style={{ fontSize: "36px" }} />,
+  },
 ];
 
 export const getAmenityDetails = (name) =>
@@ -57,11 +101,18 @@ const AmenitiesCards = ({ amenities }) => {
           <Col key={amenity}>
             <Card
               size="small"
-              style={{ textAlign: "center", width: 100 }}
-              bodyStyle={{ padding: "8px" }}
+              style={{ textAlign: "center", width: 120 }}
+              bodyStyle={{
+                padding: "8px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: 80,
+              }}
             >
-              {icon} <br />
-              <span>{label}</span>
+              <span style={{ marginBottom: "4px" }}>{label}</span>
+              {icon}
             </Card>
           </Col>
         );
