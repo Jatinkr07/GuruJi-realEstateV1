@@ -1,7 +1,24 @@
 /* eslint-disable no-irregular-whitespace */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchTypes } from "../../services/api";
+import { useQuery } from "@tanstack/react-query";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const {
+    data: types,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["types"],
+    queryFn: fetchTypes,
+  });
+
+  const handleTypeSelect = (typeName) => {
+    navigate(`/explore/projects?type=${encodeURIComponent(typeName)}`);
+  };
+
   return (
     <footer className="text-gray-600 bg-gray-100 lg:py-4">
       <div className="container px-4 py-8 mx-auto max-w-7xl lg:px-0">
@@ -23,7 +40,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/about"
+                  to="/aboutus"
                   className="transition-colors hover:text-gray-900"
                 >
                   About
@@ -31,7 +48,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/enquiry"
+                  to="/contactus"
                   className="transition-colors hover:text-gray-900"
                 >
                   Enquiry
@@ -42,56 +59,46 @@ const Footer = () => {
 
           <div>
             <h3 className="mb-4 text-lg font-semibold">Projects</h3>
+
+            {isLoading && <p className="text-sm text-gray-400">Loading...</p>}
+            {isError && <p className="text-sm text-red-500">Failed to load</p>}
+
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/projects/residential"
-                  className="transition-colors hover:text-gray-900"
-                >
-                  Residential
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects/commercial"
-                  className="transition-colors hover:text-gray-900"
-                >
-                  Commercial
-                </Link>
-              </li>
+              {Array.isArray(types) && types.length > 0
+                ? types.map((type) => (
+                    <li key={type._id}>
+                      <button
+                        onClick={() => handleTypeSelect(type.name)}
+                        className="w-full px-2 py-1 text-sm text-left text-black "
+                      >
+                        {type.name}
+                      </button>
+                    </li>
+                  ))
+                : !isLoading && (
+                    <li className="text-sm text-gray-400">
+                      No project types found.
+                    </li>
+                  )}
             </ul>
           </div>
 
           <div>
             <h3 className="mb-4 text-lg font-semibold">Contact</h3>
             <ul className="space-y-2">
-              <li>Avenue 64, BPTP Park -81, Sector-81,Greater Faridabad</li>
-              <li>Phone: +91 9540274407 </li>
+              <li>Avenue 64, BPTP Park -81, Sector-81, Greater Faridabad</li>
+              <li>Phone: +91 9540274407</li>
             </ul>
           </div>
         </div>
       </div>
 
       <div className="border-t border-gray-200">
-        <div className="container flex flex-col items-center justify-end py-4 mx-auto px-28 sm:flex-row">
-          <p className="text-sm">
+        <div className="container flex flex-col items-center justify-end px-4 py-4 mx-auto sm:flex-row">
+          <p className="text-sm text-center sm:text-left">
             Copyright &copy; {new Date().getFullYear()} GuruJi Homes. All rights
             reserved.
           </p>
-          {/* <div className="flex mt-2 space-x-4 sm:mt-0">
-            <Link
-              href="/privacy"
-              className="text-sm transition-colors hover:text-gray-900"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-sm transition-colors hover:text-gray-900"
-            >
-              Terms of Service
-            </Link>
-          </div> */}
         </div>
       </div>
     </footer>
