@@ -4,7 +4,14 @@ import { CheckCircle } from "lucide-react";
 import { API_URL } from "../../services/api";
 
 export default function HighlighterBanner({ project }) {
-  const highlights = project.highlight || ["No highlights available."];
+  const highlights =
+    project.highlight && project.highlight.length > 0
+      ? project.highlight
+      : null;
+
+  if (!highlights) {
+    return null;
+  }
 
   return (
     <motion.div

@@ -38,5 +38,5 @@ app.use("/api/projects", projectsRoutes);
 app.use("/api/enquiries", enquiryRoutes);
 app.use("/api/contacts", contactRoutes);
 
-const PORT = process.env.PORT || 4008;
+const PORT = process.env.PORT || 5051;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

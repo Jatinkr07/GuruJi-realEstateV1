@@ -17,6 +17,8 @@ import {
 } from "../../services/api";
 import { useQuery } from "@tanstack/react-query";
 import { amenitiesList } from "../../Pages/Projects/Amenities/Card";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -32,6 +34,7 @@ const ProjectsForm = ({ visible, onCancel, initialValues, onFinish }) => {
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [highlightInput, setHighlightInput] = useState("");
   const [highlights, setHighlights] = useState([]);
+  const [description, setDescription] = useState("");
 
   const { data: builders, isLoading: buildersLoading } = useQuery({
     queryKey: ["builders"],
@@ -50,13 +53,14 @@ const ProjectsForm = ({ visible, onCancel, initialValues, onFinish }) => {
     if (initialValues) {
       form.setFieldsValue({
         title: initialValues.title,
+        size: initialValues.size,
         builder: initialValues.builder?._id || initialValues.builder,
         type: initialValues.type?._id || initialValues.type,
         status: initialValues.status?._id || initialValues.status,
         location: initialValues.location,
         price: initialValues.price,
-        description: initialValues.description,
       });
+      setDescription(initialValues.description || "");
       setSelectedAmenities(initialValues.amenities || []);
       setHighlights(initialValues.highlight || []);
       setImageList(
@@ -121,6 +125,7 @@ const ProjectsForm = ({ visible, onCancel, initialValues, onFinish }) => {
       setFloorPlanText([]);
       setSitePlanList([]);
       setBrochureList([]);
+      setDescription("");
       setBannerImageList([]);
       setSelectedAmenities([]);
       setHighlights([]);
@@ -164,12 +169,13 @@ const ProjectsForm = ({ visible, onCancel, initialValues, onFinish }) => {
   const handleFinish = (values) => {
     const formData = new FormData();
     formData.append("title", values.title);
+    formData.append("size", values.size);
     formData.append("builder", values.builder);
     formData.append("type", values.type);
     formData.append("status", values.status);
     formData.append("location", values.location);
     formData.append("price", values.price);
-    formData.append("description", values.description);
+    formData.append("description", description);
     formData.append("amenities", JSON.stringify(selectedAmenities));
     formData.append("highlight", JSON.stringify(highlights));
     formData.append("floorPlanText", JSON.stringify(floorPlanText));
@@ -262,6 +268,13 @@ const ProjectsForm = ({ visible, onCancel, initialValues, onFinish }) => {
           <Input />
         </Form.Item>
         <Form.Item
+          name="size"
+          label="Size"
+          rules={[{ required: true, message: "Please enter a Size" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           name="builder"
           label="Builder"
           rules={[{ required: true, message: "Please select a builder" }]}
@@ -312,14 +325,21 @@ const ProjectsForm = ({ visible, onCancel, initialValues, onFinish }) => {
           label="Price"
           rules={[{ required: true, message: "Please enter a price" }]}
         >
-          <Input type="number" prefix="$" />
+          <Input type="number" prefix="₹" />
         </Form.Item>
         <Form.Item
           name="description"
           label="Description"
           rules={[{ required: true, message: "Please enter a description" }]}
         >
-          <TextArea rows={4} />
+          <CKEditor
+            editor={ClassicEditor}
+            data={description}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setDescription(data);
+            }}
+          />
         </Form.Item>
         <Form.Item
           label="Amenities"

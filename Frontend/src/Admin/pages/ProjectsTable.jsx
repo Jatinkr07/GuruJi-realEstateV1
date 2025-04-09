@@ -1,12 +1,7 @@
 // src/Admin/pages/Projects.jsx
 import { useState } from "react";
 import { Table, Button, Space, message, Tag, Tooltip } from "antd";
-import {
-  PlusOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   fetchProjects,
@@ -149,12 +144,6 @@ const ProjectsTable = () => {
         <Space size="middle">
           <Button
             type="text"
-            icon={<EyeOutlined />}
-            onClick={() => message.info(`Viewing details for ${record.title}`)}
-            className="transition-colors hover:text-blue-500"
-          />
-          <Button
-            type="text"
             icon={<EditOutlined />}
             onClick={() => {
               setFormData(record);
@@ -211,7 +200,7 @@ const ProjectsTable = () => {
           showTotal: (total) => `Total ${total} items`,
         }}
         loading={projectsLoading || statusesLoading}
-        scroll={{ x: 1400 }} // Increased scroll width to accommodate new columns
+        scroll={{ x: 1400 }}
         size="middle"
         bordered
         rowKey="_id"

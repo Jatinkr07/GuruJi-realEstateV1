@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:4008";
-// export const API_URL = "https://guruji-realestatev2.onrender.com";
+export const API_URL = "https://node.projects.codenap.in/guruji";
+// export const API_URL = "http://localhost:6008";
 
 const api = axios.create({
   baseURL: API_URL,

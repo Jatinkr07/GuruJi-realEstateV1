@@ -23,7 +23,7 @@ import Contacts from "./Admin/pages/Contact/Contact.jsx";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
-  console.log("isAuth", isAuthenticated, isLoading);
+  // console.log("isAuth", isAuthenticated, isLoading);
 
   if (isLoading) {
     return <div>Loading...</div>;

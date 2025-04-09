@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
+  size: { type: String, required: true },
   builder: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Builder",

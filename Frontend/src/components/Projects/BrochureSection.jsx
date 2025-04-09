@@ -8,6 +8,10 @@ export default function BrochureSection({ project }) {
     ? `${API_URL}/${project.brochure}`
     : null;
 
+  if (!brochureUrl) {
+    return null;
+  }
+
   return (
     <section className="w-full max-w-6xl px-4 py-8 mx-auto md:py-16">
       <div className="flex justify-start">

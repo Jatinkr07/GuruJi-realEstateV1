@@ -12,6 +12,7 @@ export const createProject = async (req, res) => {
   try {
     const {
       title,
+      size,
       builder,
       type,
       status,
@@ -28,6 +29,7 @@ export const createProject = async (req, res) => {
 
     if (
       !title ||
+      !size ||
       !builder ||
       !type ||
       !status ||
@@ -54,6 +56,7 @@ export const createProject = async (req, res) => {
 
     const projectData = {
       title,
+      size,
       builder,
       type,
       status,
@@ -100,6 +103,7 @@ export const updateProject = async (req, res) => {
 
     const {
       title,
+      size,
       builder,
       type,
       status,
@@ -119,6 +123,7 @@ export const updateProject = async (req, res) => {
 
     const updatedData = {
       title: title || project.title,
+      size: size || project.size,
       builder: builder || project.builder,
       type: type || project.type,
       status: status || project.status,
